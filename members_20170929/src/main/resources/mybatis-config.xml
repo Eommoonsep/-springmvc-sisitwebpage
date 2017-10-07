@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<!-- 설정 내용 추가 예정 -->
+	<typeAliases>
+		<!-- 선택요소로 생각하면 된다. -->
+		<!-- 패키지명에 대한 알리아스(별칭) 등록 -->
+		<package name="con.test.sts"/>
+	</typeAliases>
+
+</configuration>
+

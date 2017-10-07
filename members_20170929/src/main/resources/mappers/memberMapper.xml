@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- <mapper></mapper> 엘리먼트는 MyBatis 설정 XML 파일의 루트 엘리먼트 -->
+<!-- namespcae="" 메소드 호출시 식별자로 사용된다. -->
+<mapper namespace="com.test.sts.MemberMapper">
+
+	<!-- <select></select> 엘리먼트는 SELECT 쿼리 등록시 사용 -->
+	<!-- id="" 속성은 메소드 호출시 식별자-> memberList로 사용된다. -->
+	<!-- resultType="" 속성은 SELECT 쿼리 결과를 저장하고 매핑할 자료형 클래스 지정 -->
+	<!-- 주의) 컬럼의 이름과 타입이 자료형 클래스의 멤버변수와 일치하는 경우 자동 매핑된다. -->
+	<select id="memberList" resultType="com.test.sts.Member">
+		SELECT mid, name_, phone,
+		email, TO_CHAR(regDate , 'YYYY-MM-DD') AS regDate, clientIP
+		FROM myMembers
+		ORDER BY mid
+	</select>
+
+	<!-- <insert></insert> 엘리먼트는 Insert 쿼리 등록시 사용 -->
+	<!-- id="" 속성은 메소드 호출시 식별자 -->
+	<!-- 바인딩 변수는 '#{식별자}' 형태로 작성. 식별자는 Member 클래스의 멤버변수와 일치해야 한다. -->
+	<!-- Member 객체의 멤버변수와 #{식별자}는 쿼리 실행시 자동 매핑된다. -->
+	<insert id="memberAdd">
+		INSERT INTO myMembers (mid, name_, phone, email, regDate, clientIP) VALUES
+		((SELECT NVL(MAX(mid), 0) + 1 AS newNum FROM myMembers), #{name_},
+		#{phone}, #{email}, SYSDATE, #{clientIP})
+	</insert>
+</mapper>
